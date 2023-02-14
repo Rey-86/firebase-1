@@ -12,9 +12,11 @@ const auth = getAuth()
 window.onload = () => {
 
   // Seleccionar elementos de la página
-  let btnLogin = document.getElementById('btnLogin')
-  let inputEmail = document.getElementById('email')
-  let inputPassword = document.getElementById('password')
+  let btnLogin = document.getElementById('btnLogin');
+  let btnGoogle=document.getElementById("btnGoogle");
+  let btnCerrar=document.getElementById("btnCerrar");
+  let inputEmail = document.getElementById('email');
+  let inputPassword = document.getElementById('password');
 
   // Asociamos eventos
   btnLogin.addEventListener('click', () => {
@@ -29,7 +31,20 @@ window.onload = () => {
       .catch(error => {
         const errorCode = error.code
         const errorMessage = error.message
-        console.log(errorMessage)
-      })
+        alert(errorMessage);
+      });
   })
+
+  btnGoogle.addEventListener("click",()=>{
+    signIn();
+  })
+
+  btnCerrar.addEventListener("click",()=>{
+    signOut(auth);
+  })
+}
+async function signIn() {
+  // Sign in Firebase using popup auth and Google as the identity provider.
+  var provider = new GoogleAuthProvider();
+  await signInWithPopup(getAuth(), provider);
 }
