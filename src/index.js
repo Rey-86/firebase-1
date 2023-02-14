@@ -1,6 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app'
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, signInWithEmailAndPassword,onAuthStateChanged,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut} from 'firebase/auth'
 import { getFirebaseConfig } from './firebase-config'
 
 const firebaseAppConfig = getFirebaseConfig()
@@ -8,6 +11,16 @@ const firebaseAppConfig = getFirebaseConfig()
 // Initialize Firebase
 const app = initializeApp(firebaseAppConfig)
 const auth = getAuth()
+
+onAuthStateChanged(auth, (user)=>{
+  if(user){
+    //Login
+    alert(auth.currentUser.displayName)
+  }else{
+    alert("cerrando sesión");
+    //logout
+  }
+});
 
 window.onload = () => {
 
