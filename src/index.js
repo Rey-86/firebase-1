@@ -15,7 +15,7 @@ const auth = getAuth()
 onAuthStateChanged(auth, (user)=>{
   if(user){
     //Login
-    alert(auth.currentUser.displayName)
+    //alert(auth.currentUser.displayName)
   }else{
     alert("cerrando sesión");
     //logout
@@ -30,6 +30,8 @@ window.onload = () => {
   let btnCerrar=document.getElementById("btnCerrar");
   let inputEmail = document.getElementById('email');
   let inputPassword = document.getElementById('password');
+  let sectionLogin = document.getElementById("section_login");
+  let sectionMain = document.getElementById("section_main");
 
   // Asociamos eventos
   btnLogin.addEventListener('click', () => {
@@ -48,13 +50,26 @@ window.onload = () => {
       });
   })
 
-  btnGoogle.addEventListener("click",()=>{
+  btnGoogle.addEventListener("click", () => {
     signIn();
   })
 
   btnCerrar.addEventListener("click",()=>{
     signOut(auth);
   })
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      //Login
+
+      sectionLogin.hidden = true;
+      sectionMain.hidden = false;
+    } else {
+
+      sectionLogin.hidden = false;
+      sectionMain.hidden = true;
+      //logout
+    }
+  });
 }
 async function signIn() {
   // Sign in Firebase using popup auth and Google as the identity provider.
