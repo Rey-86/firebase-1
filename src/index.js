@@ -15,7 +15,8 @@ import {
   query,
   orderBy,
   limit,
-  onSnapshot
+  onSnapshot,
+  deleteDoc
 } from 'firebase/firestore';
 import { getFirebaseConfig } from "./firebase-config";
 
@@ -137,7 +138,7 @@ window.onload = () => {
       let citas="";
       snapshot.forEach(doc=>{
         let cita=doc.data();
-        citas+=`<div id=${doc.id} class="cita col-5"><p>Paciente:${cita.nombre} ${cita.apellido}</p>
+        citas+=`<div id=${doc.id} class="cita col-5"><p>Paciente: ${cita.nombre} ${cita.apellido}</p>
         <p>Fecha: ${cita.fecha} - ${cita.hora}</p>
         <p>Sintomas: ${cita.sintomas}</p>
         <i class="fa-solid fa-trash borrarCita"></i>
@@ -145,9 +146,28 @@ window.onload = () => {
       })
       
       document.getElementById("citas").innerHTML=citas;
-      
+      let btnsBorrar=document.getElementsByClassName("borrarCita");
+      for (let i = 0; i < btnsBorrar.length; i++) {
+        btnsBorrar[i].addEventListener("click",(e)=>{
+           let idDoc=e.currentTarget.parentElement.id;
+           borrarCita(idDoc);
+        })
+
+      }
     });
   }
+
+  function borrarCita(idDoc) {
+    let docRef=doc(getFirestore(),"citas",idDoc);
+    deleteDoc(docRef)
+    .then(()=>{
+      
+    })
+      .catch((err) => {
+        alert(err);
+    })
+  }
+  
 
   cargarCitas();
 }
