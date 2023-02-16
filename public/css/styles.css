@@ -5,7 +5,6 @@ body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-  background-image: url(../img/caroline-lm--m-4tYmtLlI-unsplash.jpg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -56,8 +55,19 @@ svg {
 }
 .cita{
   border:1px solid black;
+  position: relative;
 }
 .citas{
   display: flex;
   flex-direction: row  !important;
+}
+.borrarCita{
+  position: absolute;
+  top:5px;
+  right: 5px;
+}
+.editarCita{
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
 }
